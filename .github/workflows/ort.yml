@@ -10,7 +10,7 @@ jobs:
       - name: Run GitHub Action for ORT
         uses: oss-review-toolkit/ort-ci-github-action@v1
         with:
-          vcs-url: 'https://github.com/facebook/react-native'
+          vcs-url: 'https://github.com/flutter/flutter'
           run: >
               cache-dependencies,
               labels,
