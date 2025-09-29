@@ -20,5 +20,6 @@ jobs:
               evaluator,
               reporter,
               upload-results
+          allow-dynamic-versions: 'true'
           ort-cli-args : '-P ort.scanner.skipExcluded=true'
           ort-cli-scan-args: '--package-types=PROJECT'
