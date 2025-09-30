@@ -27,6 +27,7 @@ jobs:
           allow-dynamic-versions: 'true'
           ort-cli-args: >
             -P ort.scanner.skipExcluded=true
+          ort-cli-scan-args: '--package-types=PROJECT'
+          ort-cli-evaluate-args: >
             --rules-file .ort/config/evaluator.rules.kts
             --license-classifications-file .ort/config/license-classifications.yml
-          ort-cli-scan-args: '--package-types=PROJECT'
