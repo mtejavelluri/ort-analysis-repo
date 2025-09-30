@@ -1,16 +1,19 @@
 name: ORT Analyzer
+
 on:
   workflow_dispatch:
+
 jobs:
   ort:
     runs-on: ubuntu-latest
+    
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
+      
       - name: Use HTTPS instead of SSH for Git cloning
         run: git config --global url.https://github.com/.insteadOf ssh://git@github.com/
-
+      
       - name: Run GitHub Action for ORT
         uses: oss-review-toolkit/ort-ci-github-action@v1
         with:
@@ -28,14 +31,8 @@ jobs:
           allow-dynamic-versions: 'true'
           ort-cli-args: >
             -P ort.scanner.skipExcluded=true
-          ort-cli-analyze-args: >
-            -o results/${{ github.run_id }}/analyzer
           ort-cli-scan-args: >
             --package-types=PROJECT
-            -o results/${{ github.run_id }}/scanner
           ort-cli-evaluate-args: >
             --rules-file .ort/config/evaluator.rules.kts
             --license-classifications-file .ort/config/license-classifications.yml
-            -o results/${{ github.run_id }}/evaluator
-          ort-cli-report-args: >
-            -o results/${{ github.run_id }}/report
