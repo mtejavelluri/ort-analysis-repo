@@ -15,6 +15,7 @@ jobs:
         uses: oss-review-toolkit/ort-ci-github-action@v1
         with:
           vcs-url: 'https://github.com/twbs/bootstrap'
+          output-dir: results/${{ github.run_id }}
           run: >
             cache-dependencies,
             labels,
