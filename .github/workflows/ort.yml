@@ -5,21 +5,28 @@ jobs:
   ort:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Use HTTPS instead of SSH for Git cloning
         run: git config --global url.https://github.com/.insteadOf ssh://git@github.com/
+
       - name: Run GitHub Action for ORT
         uses: oss-review-toolkit/ort-ci-github-action@v1
         with:
           vcs-url: 'https://github.com/open-telemetry/opentelemetry-js.git'
           run: >
-              cache-dependencies,
-              labels,
-              analyzer,
-              scanner,
-              advisor,
-              evaluator,
-              reporter,
-              upload-results
+            cache-dependencies,
+            labels,
+            analyzer,
+            scanner,
+            advisor,
+            evaluator,
+            reporter,
+            upload-results
           allow-dynamic-versions: 'true'
-          ort-cli-args : '-P ort.scanner.skipExcluded=true'
+          ort-cli-args: >
+            -P ort.scanner.skipExcluded=true
+            --rules-file .ort/config/evaluator.rules.kts
+            --license-classifications-file .ort/config/license-classifications.yml
           ort-cli-scan-args: '--package-types=PROJECT'
