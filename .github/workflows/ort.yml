@@ -14,7 +14,7 @@ jobs:
       - name: Run GitHub Action for ORT
         uses: oss-review-toolkit/ort-ci-github-action@v1
         with:
-          vcs-url: 'https://github.com/twbs/bootstrap.git'
+          vcs-url: 'https://github.com/twbs/bootstrap'
           run: >
             cache-dependencies,
             labels,
@@ -27,8 +27,14 @@ jobs:
           allow-dynamic-versions: 'true'
           ort-cli-args: >
             -P ort.scanner.skipExcluded=true
+          ort-cli-analyze-args: >
             -o results/${{ github.run_id }}
-          ort-cli-scan-args: '--package-types=PROJECT'
+          ort-cli-scan-args: >
+            --package-types=PROJECT
+            -o results/${{ github.run_id }}
           ort-cli-evaluate-args: >
             --rules-file .ort/config/evaluator.rules.kts
             --license-classifications-file .ort/config/license-classifications.yml
+            -o results/${{ github.run_id }}
+          ort-cli-report-args: >
+            -o results/${{ github.run_id }}
