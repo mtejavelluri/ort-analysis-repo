@@ -27,15 +27,14 @@ jobs:
           allow-dynamic-versions: 'true'
           ort-cli-args: >
             -P ort.scanner.skipExcluded=true
-            -o results/${{ github.run_id }}
           ort-cli-analyze-args: >
-            # no -o here
+            -o results/${{ github.run_id }}/analyzer
           ort-cli-scan-args: >
             --package-types=PROJECT
-            # no -o here
+            -o results/${{ github.run_id }}/scanner
           ort-cli-evaluate-args: >
             --rules-file .ort/config/evaluator.rules.kts
             --license-classifications-file .ort/config/license-classifications.yml
-            # no -o here
+            -o results/${{ github.run_id }}/evaluator
           ort-cli-report-args: >
-            # no -o here
+            -o results/${{ github.run_id }}/report
