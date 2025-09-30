@@ -8,19 +8,23 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Checkout repository (for ORT config files)
-        uses: actions/checkout@v4
-        with:
-          path: config-repo
-      
       - name: Use HTTPS instead of SSH for Git cloning
         run: git config --global url.https://github.com/.insteadOf ssh://git@github.com/
+      
+      - name: Checkout ORT config repository
+        uses: actions/checkout@v4
+        with:
+          path: ort-config
+      
+      - name: Copy ORT config to default location
+        run: |
+          mkdir -p ~/.ort/config
+          cp -r ort-config/.ort/config/* ~/.ort/config/
       
       - name: Run GitHub Action for ORT
         uses: oss-review-toolkit/ort-ci-github-action@v1
         with:
-          vcs-url: 'https://github.com/WebGoat/WebGoat.git'
-          output-dir: results/${{ github.run_id }}
+          vcs-url: 'https://github.com/twbs/bootstrap'
           run: >
             cache-dependencies,
             labels,
@@ -36,5 +40,5 @@ jobs:
           ort-cli-scan-args: >
             --package-types=PROJECT
           ort-cli-evaluate-args: >
-            --rules-file .ort/config/evaluator.rules.kts
-            --license-classifications-file .ort/config/license-classifications.yml
+            --rules-file ~/.ort/config/evaluator.rules.kts
+            --license-classifications-file ~/.ort/config/license-classifications.yml
