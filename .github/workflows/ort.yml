@@ -11,8 +11,8 @@ jobs:
       - name: Use HTTPS instead of SSH for Git cloning
         run: git config --global url.https://github.com/.insteadOf ssh://git@github.com/
       
-      - name: Checkout ORT config files
-        uses: actions/checkout@v4
+     # - name: Checkout ORT config files
+      #  uses: actions/checkout@v4
       
     #  - name: Copy ORT config to home directory
      #   run: |
