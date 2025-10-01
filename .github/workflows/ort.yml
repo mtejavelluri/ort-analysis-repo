@@ -21,10 +21,10 @@ jobs:
           cp .ort/config/license-classifications.yml ~/.ort/config/
       
       # <--- ADD THIS STEP TO CLEAN THE OUTPUT FOLDER
-      - name: Clean ORT workspace
-        run: |
-          rm -rf /home/ort/work/ort-analysis-repo/ort-analysis-repo
-          mkdir -p /home/ort/work/ort-analysis-repo/ort-analysis-repo
+     # - name: Clean ORT workspace
+      #  run: |
+       #   rm -rf /home/ort/work/ort-analysis-repo/ort-analysis-repo
+        #  mkdir -p /home/ort/work/ort-analysis-repo/ort-analysis-repo
       
       - name: Run GitHub Action for ORT
         uses: oss-review-toolkit/ort-ci-github-action@v1
