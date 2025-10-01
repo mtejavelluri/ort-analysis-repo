@@ -11,21 +11,9 @@ jobs:
       - name: Use HTTPS instead of SSH for Git cloning
         run: git config --global url.https://github.com/.insteadOf ssh://git@github.com/
       
-     # - name: Checkout ORT config files
-      #  uses: actions/checkout@v4
-      
-    #  - name: Copy ORT config to home directory
-     #   run: |
-       #   mkdir -p ~/.ort/config
-         # cp .ort/config/evaluator.rules.kts ~/.ort/config/
-         # cp .ort/config/license-classifications.yml ~/.ort/config/
-      
-      # <--- ADD THIS STEP TO CLEAN THE OUTPUT FOLDER
-     # - name: Clean ORT workspace
-      #  run: |
-       #   rm -rf /home/ort/work/ort-analysis-repo/ort-analysis-repo
-        #  mkdir -p /home/ort/work/ort-analysis-repo/ort-analysis-repo
-      
+      - name: Checkout ORT config files
+        uses: actions/checkout@v4
+
       - name: Run GitHub Action for ORT
         uses: oss-review-toolkit/ort-ci-github-action@v1
         with:
@@ -40,6 +28,9 @@ jobs:
             reporter,
             upload-results
           allow-dynamic-versions: 'true'
-          ort-cli-args: '-P ort.scanner.skipExcluded=true'
+          # Results will go into a fresh folder inside the job workspace
+          ort-cli-args: '-o ort-results -P ort.scanner.skipExcluded=true'
           ort-cli-scan-args: '--package-types=PROJECT'
-          ort-cli-evaluate-args: '--rules-file ~/.ort/config/evaluator.rules.kts --license-classifications-file ~/.ort/config/license-classifications.yml'
+          ort-cli-evaluate-args: >
+            --rules-file .ort/config/evaluator.rules.kts
+            --license-classifications-file .ort/config/license-classifications.yml
